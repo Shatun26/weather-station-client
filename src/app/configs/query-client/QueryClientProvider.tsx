@@ -12,7 +12,7 @@ const queryClient = new QueryClient({
     },
   },
 	queryCache: new QueryCache({
-    onError: () => toast(`Произошла ошибка, повторите позже.`, { type: 'error' }),
+    onError: () => console.log(`Произошла ошибка, повторите позже.`, { type: 'error' }),
   }),
 });
 
