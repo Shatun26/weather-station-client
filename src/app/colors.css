@@ -1,0 +1,12 @@
+/* prettier-ignore */
+
+:root {
+  --text-main:                 #010810;
+  --text-secondary:            #636c78;
+  --text-disabled:             #abb1bf;
+  --ui-brandPrimary:           #00985f;
+  --ui-gray-600:               #9296a0;
+  --ui-gray-400:               #dde0e6;
+  --ui-gray-200:               #f0f2f5;
+  --ui-white:                  #fff;
+}
