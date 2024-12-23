@@ -1,5 +1,3 @@
-export type FetchCharDataResponse = {
-};
+export type FetchCharDataResponse = {};
 
-export type ExampleInstanceParams = {
-}
+export type ExampleInstanceParams = {};

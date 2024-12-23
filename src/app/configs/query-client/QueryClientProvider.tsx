@@ -1,5 +1,4 @@
 import { QueryClientProvider as Provider, QueryCache, QueryClient } from '@tanstack/react-query';
-import { toast } from 'auchan-uikit'
 import { ReactNode } from 'react';
 
 const queryClient = new QueryClient({
@@ -11,7 +10,7 @@ const queryClient = new QueryClient({
       refetchOnReconnect: false,
     },
   },
-	queryCache: new QueryCache({
+  queryCache: new QueryCache({
     onError: () => console.log(`Произошла ошибка, повторите позже.`, { type: 'error' }),
   }),
 });
