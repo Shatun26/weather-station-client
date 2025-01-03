@@ -1,2 +1,3 @@
-export { Root } from './root-page';
-export { SomePage } from './some-page';
+export { Layout } from './Layout';
+export { AuthPage } from './auth-page';
+export { DashboardPage } from './dashboard-page';

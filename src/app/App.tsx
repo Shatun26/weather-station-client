@@ -1,16 +1,18 @@
 import type { FC } from 'react';
+import '../entites/api/config/interceptors';
 import { RouterProvider } from 'react-router-dom';
 import 'dayjs/locale/ru';
 import './colors.css';
-import { useRoutes } from './routers/router';
+import './index.css';
+import { useRouter } from './routers/router';
 import { QueryClientProvider } from './configs';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export const App: FC = () => {
-  const routes = useRoutes();
-
   return (
     <QueryClientProvider>
-      <RouterProvider router={routes} />
+      <RouterProvider router={useRouter()} />
+      <ReactQueryDevtools initialIsOpen />
     </QueryClientProvider>
   );
 };

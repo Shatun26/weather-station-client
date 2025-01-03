@@ -18,7 +18,7 @@ export function buildWebpack(options: BuildOptions): webpack.Configuration {
       path: paths.output,
       filename: '[name].[contenthash].js',
       chunkFilename: '[name].[contenthash].js',
-      publicPath: 'auto',
+      publicPath: '/',
     },
     plugins: buildPlugins(options),
     module: {

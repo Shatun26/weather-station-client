@@ -1,0 +1,26 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.routesTitle {
+  text-transform: capitalize;
+  font-size: 14px;
+
+  .prePath {
+    font-size: 12px;
+    color: #a0aec0;
+  }
+
+  .pathSegment {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  h1 {
+    margin-top: 4px;
+    font-size: 18px;
+  }
+}
