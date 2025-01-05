@@ -4,14 +4,11 @@ import { FC } from 'react';
 import s from './styles.module.scss';
 import LineChart from '@/features/chart';
 import { useSensorsDataQuery } from '@/entites/api/instances/sensord-outside/hooks/useSensorsOutsideQuery';
-import { Loader } from '@/shared/ui/loader/loader';
 
 export const DashboardPage: FC = () => {
-  const { data } = useSensorsDataQuery();
+  const { data = [] } = useSensorsDataQuery();
 
-  if (!data) return <Loader />;
-
-  const labelTimeStamp = data?.map(item => dayjs(item.timestamp).format('DD.MM | HH:mm')) || [];
+  const labelTimeStamp = data?.map(item => dayjs(item?.timestamp).format('DD.MM | HH:mm')) || [];
   const tempArr = data?.map(item => item.temperature) || [];
 
   const charData: ChartData<'line'> = {
