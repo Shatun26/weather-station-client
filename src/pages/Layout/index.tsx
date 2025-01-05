@@ -1,7 +1,7 @@
 import Header from '@/widgets/header/header';
 import Sidebar from '@/widgets/sidebar/sidebar';
 import { FC } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import s from './styles.module.scss';
 import { useCurrentUserQuery } from '@/entites/api/instances/user/hooks/useCurrentUserQuery';
 import { queryClient } from '@/app/configs/query-client/QueryClientProvider';
@@ -12,9 +12,11 @@ export const Layout: FC = () => {
   if (isFetching) return <Loader />;
 
   if (isError) {
-    queryClient.clear();
-
-    return;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+        Something went wrong
+      </div>
+    );
   }
 
   return (
