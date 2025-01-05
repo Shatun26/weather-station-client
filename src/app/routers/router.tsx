@@ -25,5 +25,5 @@ export const useRouter = () => {
       path: '*',
       element: <Navigate to={'dashboard'} />,
     },
-  ]);
+  ], {basename: '/'});
 };
