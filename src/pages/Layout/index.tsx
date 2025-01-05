@@ -1,10 +1,9 @@
 import Header from '@/widgets/header/header';
 import Sidebar from '@/widgets/sidebar/sidebar';
 import { FC } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import s from './styles.module.scss';
 import { useCurrentUserQuery } from '@/entites/api/instances/user/hooks/useCurrentUserQuery';
-import { queryClient } from '@/app/configs/query-client/QueryClientProvider';
 import { Loader } from '@/shared/ui/loader/loader';
 export const Layout: FC = () => {
   const { isError, isFetching } = useCurrentUserQuery();
