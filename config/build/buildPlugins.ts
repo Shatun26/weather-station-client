@@ -14,7 +14,7 @@ export function buildPlugins({ mode, paths, analyzer }: BuildOptions): Configura
       template: paths.html,
     }),
     new DefinePlugin({
-      'process.env.API_URL': JSON.stringify(process.env.API_URL),
+      'process.env': JSON.stringify(process.env),
     }),
     new ESLintPlugin(),
   ];
