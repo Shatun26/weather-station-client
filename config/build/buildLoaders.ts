@@ -40,7 +40,7 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
         options: {
           modules: {
             auto: true,
-            localIdentName: isDev ? '[name]__[local]' : '[hash:base64:8]',
+            localIdentName: isDev ? '[name]__[local]__[hash:base64:8]' : '[hash:base64:8]',
           },
         },
       },
@@ -56,7 +56,7 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
         options: {
           modules: {
             auto: true,
-            localIdentName: isDev ? '[name]__[local]' : '[hash:base64:8]',
+            localIdentName: isDev ? '[name]__[local]__[hash:base64:8]' : '[hash:base64:8]',
           },
         },
       },

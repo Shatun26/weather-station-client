@@ -1,7 +1,9 @@
 import { ChangeEvent, FC, useState } from 'react';
 import s from './styles.module.scss';
+import c from '../../shared/styles/common-styles.module.scss';
 import { useLoginMutation } from '@/entites/api/instances/auth/hooks/useLoginMutation';
 import { loginRequest } from '@/entites/api/instances/auth/types';
+import clsx from 'clsx';
 
 export const AuthPage: FC = () => {
   const [credentials, setCredentials] = useState<{ email: string | null; password: string | null }>({
@@ -35,7 +37,7 @@ export const AuthPage: FC = () => {
 
   return (
     <div className={s.wrapper}>
-      <div className={s.form}>
+      <div className={clsx(c.viewBlock, s.form)}>
         <h1>Login</h1>
         <input type="text" name="email" onChange={onChange} />
         <input type="password" name="password" onChange={onChange} />

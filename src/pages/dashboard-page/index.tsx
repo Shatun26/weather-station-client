@@ -1,58 +1,60 @@
-import { ChartData } from 'chart.js';
-import dayjs from 'dayjs';
-import { FC } from 'react';
+import { ChartDataset } from 'chart.js';
+import { FC, useEffect, useState } from 'react';
 import s from './styles.module.scss';
 import LineChart from '@/features/chart';
 import { useSensorsDataQuery } from '@/entites/api/instances/sensord-outside/hooks/useSensorsOutsideQuery';
+import c from '../../shared/styles/common-styles.module.scss';
+import clsx from 'clsx';
+import SensorCard from './ui/sensor-card';
+import { useMainChart } from './hooks/useMainChart';
+import { Sensors } from './constants';
 
 export const DashboardPage: FC = () => {
   const { data = [] } = useSensorsDataQuery();
+  const [activeSensors, setActiveSensors] = useState<ChartDataset<'line'>[]>([]);
 
-  const labelTimeStamp = data?.map(item => dayjs(item?.timestamp).format('DD.MM | HH:mm')) || [];
-  const tempArr = data?.map(item => item.temperature) || [];
+  const { charData, allDatasets, options } = useMainChart({ data, activeSensors });
 
-  const charData: ChartData<'line'> = {
-    labels: labelTimeStamp,
-    datasets: [
-      {
-        label: 'Temperature',
-        data: tempArr,
-        borderColor: 'rgba(75, 192, 192, 1)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        tension: 0.4,
-        pointRadius: 8,
-        pointHoverRadius: 12,
-        segment: {
-          borderColor: ctx => (ctx.p0.skip || ctx.p1.skip ? 'rgba(75, 192, 192, 0.2)' : undefined),
-          borderDash: ctx => (ctx.p0.skip || ctx.p1.skip ? [6, 6] : undefined),
-        },
-        spanGaps: true,
-      },
-    ],
+  const toggleActiveSensor = (sensor: string) => {
+    setActiveSensors(prev => {
+      if (prev.find(item => item.label === sensor)) {
+        if (prev.length === 1) return prev;
+
+        return prev.filter(item => item.label !== sensor);
+      }
+
+      return [...prev, allDatasets.mainChartDatasets.find(item => item.label === sensor)!];
+    });
   };
 
+  useEffect(() => {
+    setActiveSensors([allDatasets.mainChartDatasets[0]]);
+  }, [data]);
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      <div className={s.chartWrapper}>
-        <LineChart data={charData} />
+    <div className={s.wrapper}>
+      <div className={s.sensors}>
+        <SensorCard
+          title={Sensors.Temperature}
+          postfix="°C"
+          isActive={activeSensors.find(item => item.label === Sensors.Temperature) ? true : false}
+          onClick={() => toggleActiveSensor(Sensors.Temperature)}
+          chartData={allDatasets.tempChartData}
+          chartOptions={options.cardChartOptions}
+        />
+        <SensorCard
+          title={Sensors.Humidity}
+          postfix="%"
+          isActive={activeSensors.find(item => item.label === Sensors.Humidity) ? true : false}
+          onClick={() => toggleActiveSensor(Sensors.Humidity)}
+          chartData={allDatasets.humChartData}
+          chartOptions={options.cardChartOptions}
+        />
       </div>
-      <div className={s.chartWrapper}>
-        <LineChart data={charData} />
+      <div className={clsx(c.viewBlock, s.controls)}>Controls</div>
+      <div className={clsx(c.viewBlock, s.chart)}>
+        <LineChart data={charData} options={options.mainChartOptions} />
       </div>
-      <div className={s.chartWrapper}>
-        <LineChart data={charData} />
-      </div>
-      {/* <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: 'fit-content' }}>
-        {sensorsOutsideData &&
-          sensorsOutsideData.map(item => (
-            <div key={item.id} style={{ display: 'flex', flexDirection: 'column', border: '1px solid black' }}>
-              <p> Id: {item.id}</p>
-              <p> Timestamp: {dayjs(item.timestamp).format('DD.MM | HH:mm')}</p>
-              <p> Humidity: {item.humidity}</p>
-              <p> Temperature:{item.temperature}</p>
-            </div>
-          ))}
-      </div> */}
     </div>
   );
 };

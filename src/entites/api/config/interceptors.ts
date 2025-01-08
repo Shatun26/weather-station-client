@@ -20,7 +20,6 @@ instances.forEach(instance => {
 
           return instance.request(originalRequest);
         } catch (err) {
-          console.error('Failed to refresh token:', err);
           window.location.href = '/auth';
 
           return Promise.reject(err);
